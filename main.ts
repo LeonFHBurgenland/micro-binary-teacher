@@ -3,6 +3,9 @@ input.onButtonPressed(Button.A, function () {
     basic.showNumber(dezimal)
     radio.sendNumber(dezimal)
 })
+radio.onReceivedString(function (receivedString) {
+    basic.showString(receivedString)
+})
 let dezimal = 0
 radio.setGroup(191)
 dezimal = randint(0, 10)
