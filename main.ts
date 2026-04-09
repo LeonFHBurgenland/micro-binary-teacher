@@ -1,14 +1,3 @@
-function wandleDezimalInHexadezimal (dezimal: number) {
-    hex2 = ""
-    durchlauf = 0
-    while (dezimal > 0) {
-        hex2 = "" + wandleDezimalInHexadezimalStelle(dezimal % 16) + hex2
-        durchlauf += 1
-        dezimal /= 16
-dezimal = Math.round(dezimal)
-    }
-    return hex2
-}
 function wandleDezimalInHexadezimalStelle (dezimal: number) {
     if (dezimal == 10) {
         return "A"
@@ -28,28 +17,16 @@ function wandleDezimalInHexadezimalStelle (dezimal: number) {
 }
 function erzeugeAngabe () {
     dezimal = randint(0, 31)
-    if (basis == 0) {
-        basic.showNumber(dezimal)
-        radio.sendString(convertToText(dezimal))
-        basic.showLeds(`
-            . . # . .
-            . # # # .
-            # . # . #
-            . . # . .
-            . . # . .
-            `)
-    } else {
-        basic.showNumber(dezimal)
-        basic.showString("" + (wandleDezimalInHexadezimal(dezimal)))
-        radio.sendString("" + (wandleDezimalInHexadezimal(dezimal)))
-        basic.showLeds(`
-            . . # . .
-            . # # # .
-            # . # . #
-            . . # . .
-            . . # . .
-            `)
-    }
+    basic.showNumber(dezimal)
+    basic.showString("" + (wandleDezimalInBasis(dezimal, basis)))
+    radio.sendString("" + (wandleDezimalInBasis(dezimal, basis)))
+    basic.showLeds(`
+        . . # . .
+        . # # # .
+        # . # . #
+        . . # . .
+        . . # . .
+        `)
 }
 input.onButtonPressed(Button.A, function () {
     erzeugeAngabe()
@@ -70,13 +47,20 @@ radio.onReceivedString(function (receivedString) {
 })
 input.onButtonPressed(Button.B, function () {
     basis += 1
-    basis = basis % 2
-    if (basis == 0) {
-        basic.showNumber(10)
-    } else {
-        basic.showNumber(16)
-    }
+    basis = basis % 16
+    basic.showNumber(basis)
 })
+function wandleDezimalInBasis (dezimal: number, basis: number) {
+    varBasis = ""
+    durchlauf = 0
+    while (dezimal > 0) {
+        varBasis = "" + wandleDezimalInHexadezimalStelle(dezimal % basis) + varBasis
+        durchlauf += 1
+        dezimal /= basis
+dezimal = Math.floor(dezimal)
+    }
+    return varBasis
+}
 function wandleBinaerInDezimal (binaer: number) {
     ergebnis = 0
     durchlauf = 0
@@ -89,10 +73,10 @@ binaer = Math.round(binaer)
     return ergebnis
 }
 let ergebnis = 0
-let basis = 0
 let durchlauf = 0
-let hex2 = ""
+let varBasis = ""
 let binaer = 0
 let dezimal = 0
+let basis = 0
 radio.setGroup(190)
 erzeugeAngabe()
