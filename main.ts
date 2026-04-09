@@ -1,7 +1,7 @@
 function erzeugeAngabe () {
     dezimal = randint(0, 31)
     basic.showNumber(dezimal)
-    radio.sendNumber(dezimal)
+    radio.sendString(convertToText(dezimal))
     basic.showLeds(`
         . . # . .
         . # # # .
