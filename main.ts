@@ -17,7 +17,6 @@ function wandleDezimalInHexadezimalStelle (dezimal: number) {
 }
 function erzeugeAngabe () {
     dezimal = randint(0, 31)
-    basic.showNumber(dezimal)
     basic.showString("" + (wandleDezimalInBasis(dezimal, basis)))
     radio.sendString("" + (wandleDezimalInBasis(dezimal, basis)))
     basic.showLeds(`
@@ -41,7 +40,6 @@ function ergebnisKorrekt (loesung: number, angabe: number) {
     }
 }
 radio.onReceivedString(function (receivedString) {
-    basic.showNumber(parseFloat(receivedString))
     basic.showNumber(wandleBinaerInDezimal(parseFloat(receivedString)))
     radio.sendString("" + (ergebnisKorrekt(wandleBinaerInDezimal(parseFloat(receivedString)), dezimal)))
 })
@@ -76,9 +74,11 @@ binaer = Math.round(binaer)
 let ergebnis = 0
 let durchlauf = 0
 let varBasis = ""
+let basis = 0
 let basisMin2 = 0
 let binaer = 0
 let dezimal = 0
-let basis = 0
+basisMin2 = 8
+basis = 10
 radio.setGroup(190)
 erzeugeAngabe()
