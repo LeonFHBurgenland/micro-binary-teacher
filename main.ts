@@ -5,6 +5,13 @@ function erzeugeAngabe () {
 }
 input.onButtonPressed(Button.A, function () {
     erzeugeAngabe()
+    basic.showLeds(`
+        . . # . .
+        . # # # .
+        # . # . #
+        . . # . .
+        . . # . .
+        `)
 })
 function ergebnisKorrekt (loesung: number, angabe: number) {
     if (loesung == angabe) {
@@ -15,8 +22,10 @@ function ergebnisKorrekt (loesung: number, angabe: number) {
             . # . . .
             . . . . .
             `)
+        return "korrekt"
     } else {
         basic.showString("X")
+        return "falsch"
     }
 }
 function wandleUmInDezimal (binaer: number) {
@@ -33,7 +42,7 @@ binaer = Math.round(binaer)
 radio.onReceivedString(function (receivedString) {
     basic.showNumber(parseFloat(receivedString))
     basic.showNumber(wandleUmInDezimal(parseFloat(receivedString)))
-    ergebnisKorrekt(wandleUmInDezimal(parseFloat(receivedString)), dezimal)
+    radio.sendString("" + (ergebnisKorrekt(wandleUmInDezimal(parseFloat(receivedString)), dezimal)))
 })
 let binaer = 0
 let durchlauf = 0
