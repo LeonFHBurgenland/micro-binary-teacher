@@ -18,7 +18,7 @@ function wandleDezimalInHexadezimalStelle (dezimal: number) {
 function erzeugeAngabe () {
     dezimal = randint(0, 31)
     basic.showString("" + (wandleDezimalInBasis(dezimal, basis)))
-    radio.sendString("B: " + convertToText(basis) + " Z: " + wandleDezimalInBasis(dezimal, basis))
+    radio.sendString("Teacher: B: " + convertToText(basis) + " Z: " + wandleDezimalInBasis(dezimal, basis))
     basic.showLeds(`
         . . # . .
         . # # # .
@@ -33,24 +33,24 @@ input.onButtonPressed(Button.A, function () {
 function ergebnisKorrekt (loesung: number, angabe: number) {
     if (loesung == angabe) {
         basic.showIcon(IconNames.Yes)
-        return 1
+        return "korrekt"
     } else {
         basic.showIcon(IconNames.No)
-        return 0
+        return "falsch"
     }
 }
 radio.onReceivedString(function (receivedString) {
-    basic.showNumber(wandleBinaerInDezimal(parseFloat(receivedString)))
-    radio.sendString("" + (ergebnisKorrekt(wandleBinaerInDezimal(parseFloat(receivedString)), dezimal)))
+    if (receivedString.includes(":")) {
+        antwort = receivedString.split(":")
+        basic.showNumber(wandleBinaerInDezimal(parseFloat(antwort[1])))
+        radio.sendString("" + antwort[0] + ":" + ergebnisKorrekt(wandleBinaerInDezimal(parseFloat(antwort[1])), dezimal))
+    }
 })
 input.onButtonPressed(Button.B, function () {
     basisMin2 += 1
     basisMin2 = basisMin2 % 15
     basis = basisMin2 + 2
     basic.showNumber(basis)
-})
-radio.onReceivedValue(function (name, value) {
-	
 })
 function wandleDezimalInBasis (dezimal: number, basis: number) {
     varBasis = ""
@@ -77,10 +77,11 @@ binaer = Math.round(binaer)
 let ergebnis = 0
 let durchlauf = 0
 let varBasis = ""
-let basis = 0
+let antwort: string[] = []
 let basisMin2 = 0
-let binaer = 0
 let dezimal = 0
+let binaer = 0
+let basis = 0
 basisMin2 = 8
 basis = 10
 radio.setGroup(190)
