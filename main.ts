@@ -2,9 +2,6 @@ function erzeugeAngabe () {
     dezimal = randint(0, 31)
     basic.showNumber(dezimal)
     radio.sendNumber(dezimal)
-}
-input.onButtonPressed(Button.A, function () {
-    erzeugeAngabe()
     basic.showLeds(`
         . . # . .
         . # # # .
@@ -12,19 +9,16 @@ input.onButtonPressed(Button.A, function () {
         . . # . .
         . . # . .
         `)
+}
+input.onButtonPressed(Button.A, function () {
+    erzeugeAngabe()
 })
 function ergebnisKorrekt (loesung: number, angabe: number) {
     if (loesung == angabe) {
-        basic.showLeds(`
-            . . . . #
-            . . . # .
-            # . # . .
-            . # . . .
-            . . . . .
-            `)
+        basic.showIcon(IconNames.Yes)
         return "korrekt"
     } else {
-        basic.showString("X")
+        basic.showIcon(IconNames.No)
         return "falsch"
     }
 }
