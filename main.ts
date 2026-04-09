@@ -46,9 +46,9 @@ radio.onReceivedString(function (receivedString) {
     radio.sendString("" + (ergebnisKorrekt(wandleBinaerInDezimal(parseFloat(receivedString)), dezimal)))
 })
 input.onButtonPressed(Button.B, function () {
-    basisMin1 += 1
-    basisMin1 = basisMin1 % 16
-    basis = basisMin1 + 1
+    basisMin2 += 1
+    basisMin2 = basisMin2 % 15
+    basis = basisMin2 + 2
     basic.showNumber(basis)
 })
 function wandleDezimalInBasis (dezimal: number, basis: number) {
@@ -76,7 +76,7 @@ binaer = Math.round(binaer)
 let ergebnis = 0
 let durchlauf = 0
 let varBasis = ""
-let basisMin1 = 0
+let basisMin2 = 0
 let binaer = 0
 let dezimal = 0
 let basis = 0
