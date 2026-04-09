@@ -18,7 +18,7 @@ function wandleDezimalInHexadezimalStelle (dezimal: number) {
 function erzeugeAngabe () {
     dezimal = randint(0, 31)
     basic.showString("" + (wandleDezimalInBasis(dezimal, basis)))
-    radio.sendString("Teacher;B: " + convertToText(basis) + " Z: " + wandleDezimalInBasis(dezimal, basis))
+    radio.sendString("Teacher;B:" + convertToText(basis) + " Z:" + wandleDezimalInBasis(dezimal, basis))
     basic.showLeds(`
         . . # . .
         . # # # .
