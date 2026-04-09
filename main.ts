@@ -1,5 +1,5 @@
 function erzeugeAngabe () {
-    dezimal = randint(0, 255)
+    dezimal = randint(0, 31)
     basic.showNumber(dezimal)
     radio.sendNumber(dezimal)
 }
@@ -34,11 +34,6 @@ radio.onReceivedString(function (receivedString) {
     basic.showNumber(parseFloat(receivedString))
     basic.showNumber(wandleUmInDezimal(parseFloat(receivedString)))
     ergebnisKorrekt(wandleUmInDezimal(parseFloat(receivedString)), dezimal)
-})
-input.onButtonPressed(Button.B, function () {
-    dezimal = randint(0, 10)
-    basic.showNumber(dezimal)
-    wandleUmInDezimal(dezimal)
 })
 let binaer = 0
 let durchlauf = 0
