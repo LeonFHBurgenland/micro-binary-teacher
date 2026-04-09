@@ -18,7 +18,7 @@ function wandleDezimalInHexadezimalStelle (dezimal: number) {
 function erzeugeAngabe () {
     dezimal = randint(0, 31)
     basic.showString("" + (wandleDezimalInBasis(dezimal, basis)))
-    radio.sendString("Teacher: B: " + convertToText(basis) + " Z: " + wandleDezimalInBasis(dezimal, basis))
+    radio.sendString("Teacher;B: " + convertToText(basis) + " Z: " + wandleDezimalInBasis(dezimal, basis))
     basic.showLeds(`
         . . # . .
         . # # # .
@@ -40,10 +40,10 @@ function ergebnisKorrekt (loesung: number, angabe: number) {
     }
 }
 radio.onReceivedString(function (receivedString) {
-    if (receivedString.includes(":")) {
-        antwort = receivedString.split(":")
+    if (receivedString.includes(";")) {
+        antwort = receivedString.split(";")
         basic.showNumber(wandleBinaerInDezimal(parseFloat(antwort[1])))
-        radio.sendString("" + antwort[0] + ":" + ergebnisKorrekt(wandleBinaerInDezimal(parseFloat(antwort[1])), dezimal))
+        radio.sendString("" + antwort[0] + ";" + ergebnisKorrekt(wandleBinaerInDezimal(parseFloat(antwort[1])), dezimal))
     }
 })
 input.onButtonPressed(Button.B, function () {
