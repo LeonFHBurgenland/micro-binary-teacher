@@ -38,6 +38,16 @@ radio.onReceivedString(function (receivedString) {
     basic.showNumber(wandleUmInDezimal(parseFloat(receivedString)))
     radio.sendString("" + (ergebnisKorrekt(wandleUmInDezimal(parseFloat(receivedString)), dezimal)))
 })
+input.onButtonPressed(Button.B, function () {
+    basis += 1
+    basis = basis % 2
+    if (basis == 0) {
+        basic.showNumber(10)
+    } else {
+        basic.showNumber(16)
+    }
+})
+let basis = 0
 let binaer = 0
 let durchlauf = 0
 let ergebnis = 0
